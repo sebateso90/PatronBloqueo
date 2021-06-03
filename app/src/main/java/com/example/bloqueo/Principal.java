@@ -15,7 +15,7 @@ import io.paperdb.Paper;
 
 public class Principal extends AppCompatActivity {
 
-
+//Paper es donde se guarda el patron (parecido pero no es SQL)
     String save_pattern_key = "pattern_code";
     PatternLockView mPatternLockView;
     String final_pattern = "";

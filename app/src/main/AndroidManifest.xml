@@ -11,7 +11,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ActividadDesbloqueada"></activity>
         <activity android:name=".Principal" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

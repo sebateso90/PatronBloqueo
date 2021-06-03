@@ -29,15 +29,16 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        Paper.init(this);
-        Paper.book().delete(save_pattern_key); //Borra el patron de bloqueo
+        Paper.init(this); //inicializamos el paper, aca se guarda el contenido del patron
+        //Paper.book().delete(save_pattern_key); //Borra el patron de bloqueo
+        //CUnado tengamos el patron, borrar comentar esta linea y aclarar cual es
 
         final String save_pattern = Paper.book().read(save_pattern_key);
-        if(save_pattern != null && !save_pattern.equals("null"))
+        if(save_pattern != null && !save_pattern.equals("null")) //Existe un patron ?
         {
-            setContentView(R.layout.activity_principal);
+            setContentView(R.layout.activity_principal); //Creamos otra activity para usarla luego d guardar el pattern
             mPatternLockView = (PatternLockView)findViewById(R.id.pattern_lock_view);
-            mPatternLockView.addPatternLockListener(new PatternLockViewListener() {
+            mPatternLockView.addPatternLockListener(new PatternLockViewListener() { //Creamos el listener del pattern
                 @Override
                 public void onStarted() {
 
@@ -49,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onComplete(List<PatternLockView.Dot> pattern) {
-                    final_pattern = PatternLockUtils.patternToString(mPatternLockView,pattern);
+                public void onComplete(List<PatternLockView.Dot> pattern) { //Cuando terminamos de escribir el patron
+                    final_pattern = PatternLockUtils.patternToString(mPatternLockView,pattern); //Guardo lo que marco en el patron
                     if(final_pattern.equals(save_pattern)){
                         Toast.makeText(MainActivity.this, "Password Correcta!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this,ActividadDesbloqueada.class);
@@ -68,10 +69,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-        else
+        else //Sino existe el patron
         {
 
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_main); //Esta es la activity donde guardo el patron
             mPatternLockView = (PatternLockView)findViewById(R.id.pattern_lock_view);
             mPatternLockView.addPatternLockListener(new PatternLockViewListener() {
                 @Override
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             Button btnSetup = (Button)findViewById(R.id.btnSetearPatron);
             btnSetup.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View v) { //Click en el boton Guardar Patron
                     Paper.book().write(save_pattern_key, final_pattern);
                     Toast.makeText(MainActivity.this, "Patron de bloqueo Guardado!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this,Principal.class);
